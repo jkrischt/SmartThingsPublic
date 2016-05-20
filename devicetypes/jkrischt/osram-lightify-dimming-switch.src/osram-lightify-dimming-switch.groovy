@@ -17,7 +17,7 @@
 */
 
 metadata {
-  definition (name: "OSRAM Lightify Dimming Switch", namespace: "motley74", author: "Michael Hudson") {
+  definition (name: "OSRAM Lightify Dimming Switch", namespace: "jkrischt", author: "Michael Hudson") {
     capability "Actuator"
     capability "Battery"
     capability "Button"
@@ -358,7 +358,7 @@ def offResponse() {
 }
 
 def dim1Response() {
-	log.debug "Creating on response"
+	log.debug "Creating dim1 response"
     def swtch = "1"
     def d1 = "st cmd 0x${device1} 1 8 4 {${dim1} 0000}"
     def d2
@@ -419,7 +419,7 @@ def dim1Response() {
 }
 
 def dim2Response() {
-	log.debug "Creating on response"
+	log.debug "Creating dim2 response"
     def swtch = "1"
     def d1 = "st cmd 0x${device1} 1 8 4 {${dim2} 0000}"
     def d2
