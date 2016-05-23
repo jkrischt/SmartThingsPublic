@@ -39,10 +39,15 @@ metadata {
   
     preferences {
         input("device1", "string", title:"Device Network ID 1", description: "Device Network ID 1", defaultValue: "" ,required: false, displayDuringSetup: false)
+        input("end1", "string", title:"Device Endpoint ID 1", description: "Device Endpoint ID 1", defaultValue: "" ,required: false, displayDuringSetup: false)
         input("device2", "string", title:"Device Network ID 2", description: "Device Network ID 2", defaultValue: "" ,required: false, displayDuringSetup: false)
+        input("end2", "string", title:"Device Endpoint ID 2", description: "Device Endpoint ID 2", defaultValue: "" ,required: false, displayDuringSetup: false)
         input("device3", "string", title:"Device Network ID 3", description: "Device Network ID 3", defaultValue: "" ,required: false, displayDuringSetup: false)
+        input("end3", "string", title:"Device Endpoint ID 3", description: "Device Endpoint ID 3", defaultValue: "" ,required: false, displayDuringSetup: false)
         input("device4", "string", title:"Device Network ID 4", description: "Device Network ID 4", defaultValue: "" ,required: false, displayDuringSetup: false)
+        input("end4", "string", title:"Device Endpoint ID 4", description: "Device Endpoint ID 4", defaultValue: "" ,required: false, displayDuringSetup: false)
         input("device5", "string", title:"Device Network ID 5", description: "Device Network ID 5", defaultValue: "" ,required: false, displayDuringSetup: false)
+        input("end5", "string", title:"Device Endpoint ID 5", description: "Device Endpoint ID 5", defaultValue: "" ,required: false, displayDuringSetup: false)
         input("dim1", "string", title:"Dim Level Uppper", description: "Dim Level Upppr", defaultValue: "" , required: false, displayDuringSetup: false)
         input("dim2", "string", title:"Dim Level Lower", description: "Dim Level Lower", defaultValue: "" , required: false, displayDuringSetup: false)
 	}
@@ -239,22 +244,22 @@ private Map getBatteryResult(rawValue) {
 
 def onResponse() {
 	log.debug "Creating on response"
-    def on1 = "st cmd 0x${device1} 1 8 4 {99 0000}"
+    def on1 = "st cmd 0x${device1} 0x${end1} 8 4 {99 0000}"
     def on2
     def on3
     def on4
     def on5
     if (device2 == null) {} else {
-       	on2 = "st cmd 0x${device2} 1 8 4 {99 0000}"
+       	on2 = "st cmd 0x${device2} 0x${end2} 8 4 {99 0000}"
 	}
     if (device3 == null) {} else {
-       	on3 = "st cmd 0x${device3} 1 8 4 {99 0000}"										
+       	on3 = "st cmd 0x${device3} 0x${end3} 8 4 {99 0000}"										
 	}
     if (device4 == null) {} else {
-       	on4 = "st cmd 0x${device4} 1 8 4 {99 0000}"
+       	on4 = "st cmd 0x${device4} 0x${end4} 8 4 {99 0000}"
 	}
     if (device5 == null) {} else {
-       	on5 = "st cmd 0x${device5} 1 8 4 {99 0000}"
+       	on5 = "st cmd 0x${device5} 0x${end5} 8 4 {99 0000}"
 	}
     
     if (device5 == null) {
@@ -299,22 +304,22 @@ def onResponse() {
 
 def offResponse() {
 	log.debug "Creating off response"
-    def off1 = "st cmd 0x${device1} 1 6 0 {}"
+    def off1 = "st cmd 0x${device1} 0x${end1} 6 0 {}"
     def off2
     def off3
     def off4
     def off5
     if (device2 == null) {} else {
-       	off2 = "st cmd 0x${device2} 1 6 0 {}"
+       	off2 = "st cmd 0x${device2} 0x${end2} 6 0 {}"
 	}
     if (device3 == null) {} else {
-       	off3 = "st cmd 0x${device3} 1 6 0 {}"										
+       	off3 = "st cmd 0x${device3} 0x${end3} 6 0 {}"										
 	}
     if (device4 == null) {} else {
-       	off4 = "st cmd 0x${device4} 1 6 0 {}"
+       	off4 = "st cmd 0x${device4} 0x${end4} 6 0 {}"
 	}
     if (device5 == null) {} else {
-       	off5 = "st cmd 0x${device5} 1 6 0 {}"
+       	off5 = "st cmd 0x${device5} 0x${end5} 6 0 {}"
 	}
     
     if (device5 == null) {
@@ -360,22 +365,22 @@ def offResponse() {
 def dim1Response() {
 	log.debug "Creating dim1 response"
     def swtch = "1"
-    def d1 = "st cmd 0x${device1} 1 8 4 {${dim1} 0000}"
+    def d1 = "st cmd 0x${device1} 0x${end1} 8 4 {${dim1} 0000}"
     def d2
     def d3
     def d4
     def d5
     if (device2 == null) {} else {
-       	d2 = "st cmd 0x${device2} 1 8 4 {${dim1} 0000}"
+       	d2 = "st cmd 0x${device2} 0x${end2} 8 4 {${dim1} 0000}"
 	}
     if (device3 == null) {} else {
-       	d3 = "st cmd 0x${device3} 1 8 4 {${dim1} 0000}"										
+       	d3 = "st cmd 0x${device3} 0x${end3} 8 4 {${dim1} 0000}"										
 	}
     if (device4 == null) {} else {
-       	d4 = "st cmd 0x${device4} 1 8 4 {${dim1} 0000}"
+       	d4 = "st cmd 0x${device4} 0x${end4} 8 4 {${dim1} 0000}"
 	}
     if (device5 == null) {} else {
-       	d5 = "st cmd 0x${device5} 1 8 4 {${dim1} 0000}"
+       	d5 = "st cmd 0x${device5} 0x${end5} 8 4 {${dim1} 0000}"
 	}
     
     if (device5 == null) {
@@ -421,22 +426,22 @@ def dim1Response() {
 def dim2Response() {
 	log.debug "Creating dim2 response"
     def swtch = "1"
-    def d1 = "st cmd 0x${device1} 1 8 4 {${dim2} 0000}"
+    def d1 = "st cmd 0x${device1} 0x${end1} 8 4 {${dim2} 0000}"
     def d2
     def d3
     def d4
     def d5
     if (device2 == null) {} else {
-       	d2 = "st cmd 0x${device2} 1 8 4 {${dim2} 0000}"
+       	d2 = "st cmd 0x${device2} 0x${end2} 8 4 {${dim2} 0000}"
 	}
     if (device3 == null) {} else {
-       	d3 = "st cmd 0x${device3} 1 8 4 {${dim2} 0000}"										
+       	d3 = "st cmd 0x${device3} 0x${end3} 8 4 {${dim2} 0000}"										
 	}
     if (device4 == null) {} else {
-       	d4 = "st cmd 0x${device4} 1 8 4 {${dim2} 0000}"
+       	d4 = "st cmd 0x${device4} 0x${end4} 8 4 {${dim2} 0000}"
 	}
     if (device5 == null) {} else {
-       	d5 = "st cmd 0x${device5} 1 8 4 {${dim2} 0000}"
+       	d5 = "st cmd 0x${device5} 0x${end5} 8 4 {${dim2} 0000}"
 	}
     
     if (device5 == null) {
