@@ -190,16 +190,16 @@ private Map parseCatchAllMessage(String description) {
           log.debug "Parse returned ${result?.descriptionText}"
           return result
           break
-        case 3: /* brightness change stop command
+        case 3: // brightness change stop command
           def result = [
             name: 'button',
-            value: 'released',
-            data: [buttonNumber: [1,2]],
-            descriptionText: "$device.displayName button was released",
-            isStateChange: true
-          ]*/
+            value: 'released'
+            //data: [buttonNumber: [1,2]],
+            //descriptionText: "$device.displayName button was released",
+            //isStateChange: true
+          ]
           log.debug "Recieved stop command, not currently implemented!"
-          //return result
+          return result
           break
         case 5: // brightness increase command
           Map result = [:]
