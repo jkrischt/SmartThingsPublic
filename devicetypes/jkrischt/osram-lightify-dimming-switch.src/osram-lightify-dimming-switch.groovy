@@ -17,7 +17,7 @@
 */
 
 metadata {
-  definition (name: "OSRAM Lightify Dimming Switch", namespace: "jkrischt", author: "Michael Hudson") {
+  definition (name: "OSRAM Lightify Dimming Switch Test", namespace: "jkrischt", author: "Michael Hudson") {
     capability "Actuator"
     capability "Battery"
     capability "Button"
@@ -27,7 +27,7 @@ metadata {
        
     attribute "zMessage", "String"
        
-    fingerprint profileId: "0104", deviceId: "0001", inClusters: "0000, 0001, 0003, 0020, 0402, 0B05", outClusters: "0003, 0006, 0008, 0019", /*manufacturer: "OSRAM", model: "Lightify 2.4GHZZB/SWITCH/LFY", */deviceJoinName: "OSRAM Lightify Dimming Switch"
+    //fingerprint profileId: "0104", deviceId: "0001", inClusters: "0000, 0001, 0003, 0020, 0402, 0B05", outClusters: "0003, 0006, 0008, 0019", /*manufacturer: "OSRAM", model: "Lightify 2.4GHZZB/SWITCH/LFY", */deviceJoinName: "OSRAM Lightify Dimming Switch"
   }
 
   // simulator metadata
@@ -48,8 +48,8 @@ metadata {
         input("end4", "string", title:"Device Endpoint ID 4", description: "Device Endpoint ID 4", defaultValue: "" ,required: false, displayDuringSetup: false)
         input("device5", "string", title:"Device Network ID 5", description: "Device Network ID 5", defaultValue: "" ,required: false, displayDuringSetup: false)
         input("end5", "string", title:"Device Endpoint ID 5", description: "Device Endpoint ID 5", defaultValue: "" ,required: false, displayDuringSetup: false)
-        input("dim1", "string", title:"Dim Level Uppper", description: "Dim Level Upppr", defaultValue: "" , required: false, displayDuringSetup: false)
-        input("dim2", "string", title:"Dim Level Lower", description: "Dim Level Lower", defaultValue: "" , required: false, displayDuringSetup: false)
+        input("dim1", "number", title:"Dim Level Uppper", description: "Dim Level Upppr", defaultValue: "" , required: false, displayDuringSetup: false)
+        input("dim2", "number", title:"Dim Level Lower", description: "Dim Level Lower", defaultValue: "" , required: false, displayDuringSetup: false)
 	}
 
 
@@ -244,22 +244,22 @@ private Map getBatteryResult(rawValue) {
 
 def onResponse() {
 	log.debug "Creating on response"
-    def on1 = "st cmd 0x${device1} 0x${end1} 8 4 {99 0000}"
+    def on1 = "st cmd 0x${device1} 0x${end1} 8 4 {FE 0000}"
     def on2
     def on3
     def on4
     def on5
     if (device2 == null) {} else {
-       	on2 = "st cmd 0x${device2} 0x${end2} 8 4 {99 0000}"
+       	on2 = "st cmd 0x${device2} 0x${end2} 8 4 {FE 0000}"
 	}
     if (device3 == null) {} else {
-       	on3 = "st cmd 0x${device3} 0x${end3} 8 4 {99 0000}"										
+       	on3 = "st cmd 0x${device3} 0x${end3} 8 4 {FE 0000}"										
 	}
     if (device4 == null) {} else {
-       	on4 = "st cmd 0x${device4} 0x${end4} 8 4 {99 0000}"
+       	on4 = "st cmd 0x${device4} 0x${end4} 8 4 {FE 0000}"
 	}
     if (device5 == null) {} else {
-       	on5 = "st cmd 0x${device5} 0x${end5} 8 4 {99 0000}"
+       	on5 = "st cmd 0x${device5} 0x${end5} 8 4 {FE 0000}"
 	}
     
     if (device5 == null) {
@@ -364,7 +364,7 @@ def offResponse() {
 
 def dim1Response() {
 	log.debug "Creating dim1 response"
-    def swtch = "1"
+    def dim1 = hexString(Math.round(dim1 * 255/100))
     def d1 = "st cmd 0x${device1} 0x${end1} 8 4 {${dim1} 0000}"
     def d2
     def d3
@@ -425,7 +425,7 @@ def dim1Response() {
 
 def dim2Response() {
 	log.debug "Creating dim2 response"
-    def swtch = "1"
+    def dim2 = hexString(Math.round(dim2 * 255/100))
     def d1 = "st cmd 0x${device1} 0x${end1} 8 4 {${dim2} 0000}"
     def d2
     def d3
